@@ -15,19 +15,24 @@ const getAccessToken = async (): Promise<AccessToken> => {
 
   const basic = Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
 
-  const response = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    headers: {
-      Authorization: `Basic ${basic}`,
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: queryString.stringify({
-      grant_type: 'refresh_token',
-      refresh_token: refreshToken
+  try {
+    return await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+        Authorization: `Basic ${basic}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: queryString.stringify({
+        grant_type: 'refresh_token',
+        refresh_token: refreshToken
+      })
+    }).then((response) => {
+      return response.json()
     })
-  })
-
-  return response.json()
+  } catch (error) {
+    console.error('Error getting access token: ', error)
+    throw new Error('Failed to get Spotify access token')
+  }
 }
 
 const getAccessTokenHeader = (accessToken: string) => {
@@ -35,10 +40,15 @@ const getAccessTokenHeader = (accessToken: string) => {
 }
 
 const getNowPlayingResponse = async (accessToken: string) => {
-  return fetch(
-    `${BASE_URL}/currently-playing`,
-    getAccessTokenHeader(accessToken)
-  )
+  try {
+    return fetch(
+      `${BASE_URL}/currently-playing`,
+      getAccessTokenHeader(accessToken)
+    )
+  } catch (error) {
+    console.error('Error getting the track playing now!', error)
+    throw new Error('Failed to get the track playing now from Spotify')
+  }
 }
 
 const mapSpotifyData = (track: any) => {
@@ -53,16 +63,23 @@ const mapSpotifyData = (track: any) => {
 }
 
 const getRecentlyPlayed = async (accessToken: string) => {
-  const response = await fetch(
-    `${BASE_URL}/recently-played?limit=1`,
-    getAccessTokenHeader(accessToken)
-  )
+  try {
+    const response = await fetch(
+      `${BASE_URL}/recently-played?limit=1`,
+      getAccessTokenHeader(accessToken)
+    )
 
-  const {
-    items: [{ track }]
-  } = await response.json()
+    console.log('Recently played response: ', response)
 
-  return { isPlaying: false, ...mapSpotifyData(track) }
+    const {
+      items: [{ track }]
+    } = await response.json()
+
+    return { isPlaying: false, ...mapSpotifyData(track) }
+  } catch (error) {
+    console.error('Error getting recently played song: ', error)
+    throw new Error('Failed to get recently played song')
+  }
 }
 
 const getSpotifyData = async () => {

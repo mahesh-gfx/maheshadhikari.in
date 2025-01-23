@@ -35,7 +35,7 @@ type MetaData = z.output<typeof metaDataSchema>
 type MetaDataInput = z.input<typeof metaDataSchema>
 
 const _mainMetaData: MetaDataInput = {
-  title: 'Jesica',
+  title: 'Mahesh',
   description:
     'A dedicated problem-solver who thrives{n}on learning and building.'
 }

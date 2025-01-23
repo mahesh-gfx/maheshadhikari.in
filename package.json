@@ -1,5 +1,5 @@
 {
-  "name": "jestsee.com",
+  "name": "maheshadhikari.in",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -48,8 +48,8 @@
     "markdown-to-jsx": "^7.7.1",
     "open-graph-scraper": "^6.8.3",
     "query-string": "^9.1.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "react-leaflet": "^4.2.1",
     "react-tweet": "^3.2.1",
     "reading-time": "^1.5.0",

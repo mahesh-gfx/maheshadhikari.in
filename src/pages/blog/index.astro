@@ -9,12 +9,13 @@ import { getCustomTransition } from '@/lib/customTransition'
 import { blogMetaData } from '@/lib/metaData'
 
 import Decorator from '../projects/_components/Decorator.astro'
+import UnderConstruction from '../_components/UnderConstruction.astro'
 
 const blogEntries = await getCollection('blog')
 ---
 
-<!-- <UnderConstruction /> -->
-<BaseLayout>
+<UnderConstruction />
+<!-- <BaseLayout>
   <SEO
     title={`Blog | ${blogMetaData.title}`}
     description={blogMetaData.description}
@@ -25,4 +26,4 @@ const blogEntries = await getCollection('blog')
   <section class='mt-12 sm:mt-16' transition:animate={getCustomTransition(0.2)}>
     {blogEntries.map((item) => <BlogCard {...item} />)}
   </section>
-</BaseLayout>
+</BaseLayout> -->

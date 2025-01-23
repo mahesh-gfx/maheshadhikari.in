@@ -9,11 +9,14 @@ import { getCustomTransition } from '@/lib/customTransition'
 import { projectMetaData } from '@/lib/metaData'
 
 import Decorator from './_components/Decorator.astro'
+import UnderConstruction from '../_components/UnderConstruction.astro'
 
 const projects = await getCollection('projects')
 ---
 
-<BaseLayout>
+<UnderConstruction />
+
+<!-- <BaseLayout>
   <SEO
     title={`Projects | ${projectMetaData.title}`}
     description={projectMetaData.description}
@@ -27,4 +30,4 @@ const projects = await getCollection('projects')
   >
     {projects.map(({ id, data }) => <ProjectCard slug={id} {...data} />)}
   </section>
-</BaseLayout>
+</BaseLayout> -->
