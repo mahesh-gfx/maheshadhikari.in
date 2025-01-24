@@ -69,7 +69,7 @@ const getRecentlyPlayed = async (accessToken: string) => {
       getAccessTokenHeader(accessToken)
     )
 
-    console.log('Recently played response: ', response)
+    // console.log('Recently played response: ', response)
 
     const {
       items: [{ track }]
